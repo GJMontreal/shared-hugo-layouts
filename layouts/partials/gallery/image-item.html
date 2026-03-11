@@ -1,0 +1,25 @@
+{{ $image := .image }}
+{{ $params := .Params }}
+{{ $link := .link }}
+{{ $title := .title }}
+{{ $caption := .caption }}
+{{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process "fit 600x600")) }}
+{{ $full := $image.Filter (slice images.AutoOrient (images.Process "fit 1600x1600")) }}
+{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
+
+<a class="gallery-item"
+
+   href="{{ if $link }}{{ $link }}{{ else }}{{ $full.RelPermalink }}{{ end }}"
+   data-pswp-src="{{ $full.RelPermalink }}"
+   data-pswp-width="{{ $full.Width }}"
+   data-pswp-height="{{ $full.Height }}"
+   data-pswp-type="image"
+   data-pswp-target="{{ $image.Name | urlize }}"
+   title="{{ $title }}"
+   itemscope
+   itemtype="https://schema.org/ImageObject"
+   style="aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
+   
+  {{ partial "gallery/figure.html" (dict "thumb" $thumbnail "title" $title "color" $color) }}
+  {{ partial "gallery/caption.html" $caption }}
+</a>

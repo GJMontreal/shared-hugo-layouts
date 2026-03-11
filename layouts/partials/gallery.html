@@ -1,0 +1,22 @@
+<section class="gallery">
+  <div id="gallery" style="visibility: hidden; height: 1px; overflow: hidden">
+    {{ $items := slice }}
+    {{ range .Resources.ByType "image" }}
+      {{ $item := partial "gallery/prepare-resource-data.html" (dict "image" . "Page" $) }}
+      {{ $items = $items | append $item }}
+    {{ end }}
+
+    {{ range sort $items (.Params.sort_by | default "name") (.Params.sort_order | default "asc") }}
+      {{ partial "gallery/gallery-item.html" (dict
+        "image" .image
+        "page" $ 
+        "title" .title
+        "date" .date
+        "caption" .caption
+        "video" .video
+        "link" .link
+        "params" .params
+      ) }}
+    {{ end }}
+  </div>
+</section>

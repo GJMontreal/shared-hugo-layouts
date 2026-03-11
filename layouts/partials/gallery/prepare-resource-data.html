@@ -1,0 +1,54 @@
+{{/* gallery/prepare-resource-data.html */}}
+{{/*
+  Accepts:
+    - image: the Page Resource (image, video, etc.)
+    - page: the parent page context
+
+  Returns:
+    a dict with:
+      - Title
+      - Date
+      - Caption
+      - Video
+      - Link
+      - Image (original resource)
+*/}}
+
+{{ $image := .image }}
+{{ $exif := $image.Exif }}
+{{ $params := $image.Params }}
+
+{{ $title := "" }}
+{{ $date := "" }}
+{{ $caption := $params.caption }}
+{{ $video := $params.video }}
+{{ $link := $params.link }}
+
+{{ with $exif }}
+  {{ with .Tags.ImageDescription }}
+    {{ $title = . }}  
+  {{ end }}
+  {{ with .Date }}
+    {{ $date = . }}
+  {{ end }}
+{{ end }}
+
+
+{{ if ne $image.Title $image.Name }}
+  {{ $title = $image.Title }}
+{{ end }}
+
+{{ with $params.Date }}
+  {{ $date = time . }}
+{{ end }}
+
+{{ return (dict
+  "title" $title
+  "date" $date
+  "caption" $caption 
+  "video" $video
+  "link" $link
+  "image" $image
+  "Params" $params
+) }}
+

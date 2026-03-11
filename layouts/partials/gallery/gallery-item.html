@@ -1,0 +1,9 @@
+{{ $image := .image }}
+{{ $params := $image.Params }}
+{{ $video := $params.video }}
+
+{{ if $video }}
+  {{ partial "gallery/video-item.html" . }}
+{{ else }}
+  {{ partial "gallery/image-item.html" . }}
+{{ end }}

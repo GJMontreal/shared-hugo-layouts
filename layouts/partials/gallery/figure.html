@@ -1,0 +1,9 @@
+<figure style="background-color: {{ .color }}; aspect-ratio: {{ .thumb.Width }} / {{ .thumb.Height }}">
+  <img
+    class="lazyload"
+    width="{{ .thumb.Width }}"
+    height="{{ .thumb.Height }}"
+    data-src="{{ .thumb.RelPermalink }}"
+    alt="{{ .title | plainify }}"
+  />
+</figure>

@@ -1,0 +1,22 @@
+{{ $image := .image }}
+{{ $params := .Params }}
+{{ $video := .video | absURL }}
+{{ $title := .title }}
+{{ $caption := .caption }}
+{{ $thumbnail := $image.Filter (slice images.AutoOrient (images.Process "fit 600x600")) }}
+{{ $full := $image.Filter (slice images.AutoOrient (images.Process "fit 1600x1600")) }}
+{{ $color := index $thumbnail.Colors 0 | default "transparent" }}
+
+<a class="gallery-item"
+   href="{{ $video }}"
+   data-pswp-video-src="{{ $video }}"
+   data-pswp-width="{{ $full.Width }}"
+   data-pswp-height="{{ $full.Height }}"
+   data-pswp-type="video"
+   target="_blank"
+   title="{{ $title }}"
+   style="aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
+   
+  {{ partial "gallery/figure.html" (dict "thumb" $thumbnail "title" $title "color" $color) }}
+  {{ partial "gallery/caption.html" $caption }}
+</a>
