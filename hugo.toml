@@ -1,0 +1,3 @@
+[module]
+  [[module.exports]]
+    path = "github.com/GJmontreal/shared-hugo-layouts"
