@@ -1,6 +1,7 @@
 <!-- shared-hugo-layouts: layouts/partials/head-custom.html -->
 {{ $base := resources.Get "css/base.css" }}
 {{ $custom := resources.Get "css/custom.css" }}
+{{ $styles := $base }}
 {{ if $custom }}
   {{ $styles = slice $base $custom | resources.Concat "css/main.css" }}
 {{ end }}}
