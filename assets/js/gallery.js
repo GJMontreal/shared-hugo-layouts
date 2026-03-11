@@ -18,7 +18,6 @@ if (gallery) {
   });
 
   function updateGallery() {
-    console.trace('updateGallery called');
     if (containerWidth === gallery.getBoundingClientRect().width) return;
     containerWidth = gallery.getBoundingClientRect().width;
 
