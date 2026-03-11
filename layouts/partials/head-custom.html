@@ -1,8 +1,15 @@
-<!-- shared-hugo-layouts: layouts/partials/head-custom.html -->
-{{ $base := resources.Get "css/base.css" }}
-{{ $custom := resources.Get "css/custom.css" }}
-{{ $styles := $base }}
-{{ if $custom }}
-  {{ $styles = slice $base $custom | resources.Concat "css/main.css" }}
-{{ end }}}
-<link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+{{ $styles := slice }}
+{{ with resources.Get "css/base.css" }}
+  {{ $styles = $styles | append . }}
+{{ end }}
+{{ with resources.Get "css/custom.css" }}
+  {{ $styles = $styles | append . }}
+{{ end }}
+{{ if gt (len $styles) 1 }}
+  {{ $styles = $styles | resources.Concat "css/main.css" }}
+{{ else if eq (len $styles) 1 }}
+  {{ $styles = index $styles 0 }}
+{{ end }}
+{{ with $styles }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}">
+{{ end }}
