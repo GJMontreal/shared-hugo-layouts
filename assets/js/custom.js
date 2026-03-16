@@ -54,9 +54,6 @@ export default class CustomCaption {
               if (hiddenCaption) {
                 // get caption from element with class hidden-caption-content
                 captionHTML = hiddenCaption.innerHTML;
-              } else {
-                // get caption from alt attribute
-                captionHTML = currSlideElement.querySelector('img').getAttribute('alt');
               }
             }
             captionEl.innerHTML = captionHTML;

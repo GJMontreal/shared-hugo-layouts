@@ -1,0 +1,7 @@
+{{ if .Params.keyword_tags }}
+<ul class="keyword-tags-list">
+  {{ range .Params.keyword_tags }}
+    <li class="tag-pill">{{ . }}</li>
+  {{ end }}
+</ul>
+{{ end }}
